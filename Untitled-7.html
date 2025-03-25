@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projectile Motion: Range Analysis</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f7;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav {
+            background-color: #34495e;
+            color: white;
+            overflow: hidden;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            display: flex;
+            margin: 20px;
+        }
+        aside {
+            width: 20%;
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-right: 2px solid #bdc3c7;
+        }
+        aside ul {
+            list-style: none;
+            padding: 0;
+        }
+        aside ul li {
+            margin: 10px 0;
+        }
+        aside ul li a {
+            text-decoration: none;
+            color: #2c3e50;
+        }
+        main {
+            width: 75%;
+            padding: 20px;
+        }
+        main h1 {
+            color: #2c3e50;
+        }
+        main h2 {
+            color: #34495e;
+        }
+        main img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            margin: 20px 0;
+        }
+        .code-snippet {
+            background-color: #f4f4f4;
+            border-left: 4px solid #2c3e50;
+            padding: 10px;
+            overflow-x: auto;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Projectile Motion: Exploring Range as a Function of Angle</h1>
+        <p>Discover the rich principles of physics through the study of projectile motion.</p>
+    </header>
+    <nav>
+        <a href="#motivation">Motivation</a>
+        <a href="#theory">Theoretical Foundation</a>
+        <a href="#analysis">Range Analysis</a>
+        <a href="#applications">Practical Applications</a>
+        <a href="#implementation">Simulation and Code</a>
+    </nav>
+    <div class="container">
+        <aside>
+            <h2>Contents</h2>
+            <ul>
+                <li><a href="#motivation">Motivation</a></li>
+                <li><a href="#theory">Theoretical Foundation</a></li>
+                <li><a href="#analysis">Range Analysis</a></li>
+                <li><a href="#applications">Practical Applications</a></li>
+                <li><a href="#implementation">Simulation and Code</a></li>
+            </ul>
+        </aside>
+        <main>
+            <section id="motivation">
+                <h1>Motivation</h1>
+                <p>Projectile motion, while simple in appearance, offers a deep dive into the fundamental principles of physics. It allows us to explore a versatile framework governed by both linear and quadratic equations. Parameters like initial velocity, gravitational acceleration, and launch height provide opportunities to model real-world phenomena such as the trajectory of a soccer ball or a rocket.</p>
+                <img src="images/motivation.jpg" alt="Illustration of Projectile Motion">
+            </section>
+            <section id="theory">
+                <h1>Theoretical Foundation</h1>
+                <p>Projectile motion follows the governing equations derived from Newton’s laws:</p>
+                <ul>
+                    <li><b>Horizontal Motion:</b> \(x(t) = v_0 \cdot \cos(\theta) \cdot t\)</li>
+                    <li><b>Vertical Motion:</b> \(y(t) = v_0 \cdot \sin(\theta) \cdot t - \frac{1}{2} g \cdot t^2\)</li>
+                </ul>
+                <p>Where:</p>
+                <ul>
+                    <li>\(v_0\): Initial velocity</li>
+                    <li>\(\theta\): Angle of projection</li>
+                    <li>\(g\): Gravitational acceleration</li>
+                    <li>\(t\): Time</li>
+                </ul>
+                <img src="images/equations.jpg" alt="Equations of Motion">
+            </section>
+            <section id="analysis">
+                <h1>Range Analysis</h1>
+                <p>The horizontal range (\(R\)) is given by:</p>
+                <div class="code-snippet">
+                    \( R = \frac{{v_0^2 \cdot \sin(2\theta)}}{g} \)
+                </div>
+                <p>Key insights:</p>
+                <ul>
+                    <li>Maximum range occurs at \(45^\circ\) in ideal conditions (flat terrain, no air resistance).</li>
+                    <li>Variations in initial velocity (\(v_0\)) and gravitational acceleration (\(g\)) significantly affect the range.</li>
+                </ul>
+                <img src="images/range-analysis.jpg" alt="Range vs Angle Graph">
+            </section>
+            <section id="applications">
+                <h1>Practical Applications</h1>
+                <p>This model is adaptable to various real-world scenarios:</p>
+                <ul>
+                    <li>Sports: Calculating the arc of a soccer ball.</li>
+                    <li>Engineering: Optimizing rocket launch trajectories.</li>
+                    <li>Uneven terrain: Accounting for initial height (\(h\)).</li>
+                </ul>
+                <img src="images/applications.jpg" alt="Practical Applications">
+            </section>
+            <section id="implementation">
+                <h1>Simulation and Code</h1>
+                <p>Below is a Python script to simulate projectile motion:</p>
+                <div class="code-snippet">
+                    <pre>
+import numpy as np
+import matplotlib.pyplot as plt
+
+def projectile_motion(v0, theta, g=9.81, h=0):
+    theta_rad = np.radians(theta)
+    t_flight = (v0 * np.sin(theta_rad) + np.sqrt((v0 * np.sin(theta_rad))**2 + 2 * g * h)) / g
+    t = np.linspace(0, t_flight, num=500)
+    x = v0 * np.cos(theta_rad) * t
+    y = v0 * np.sin(theta_rad) * t - 0.5 * g * t**2
+    return x, y
+
+v0 = 20  # Initial velocity (m/s)
+theta = 45  # Projection angle (degrees)
+x, y = projectile_motion(v0, theta)
+
+plt.plot(x, y)
+plt.title("Projectile Motion")
+plt.xlabel("Horizontal Distance (m)")
+plt.ylabel("Vertical Distance (m)")
+plt.grid()
+plt.show()
+                    </pre>
+                </div>
+                <img src="images/simulation.jpg" alt="Simulation Example">
+            </section>
+        </main>
+    </div>
+    <footer>
+        <p>&copy; 2025 Physics Investigation Hub - All Rights Reserved</p>
+    </footer>
+</body>
+</html>
