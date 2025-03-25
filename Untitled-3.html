@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projectile Motion: Range Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+        .sidebar {
+            width: 20%;
+            background-color: #2c3e50;
+            color: white;
+            position: fixed;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .sidebar h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            margin-left: 22%;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section h1, .section h2 {
+            color: #2c3e50;
+        }
+        .code-snippet {
+            background-color: #f4f4f4;
+            border-left: 4px solid #2c3e50;
+            padding: 10px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-container img {
+            max-width: 90%;
+            height: auto;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Table of Contents</h2>
+        <ul>
+            <li><a href="#theory">Theoretical Foundation</a></li>
+            <li><a href="#analysis">Range Analysis</a></li>
+            <li><a href="#applications">Practical Applications</a></li>
+            <li><a href="#implementation">Implementation</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="section" id="theory">
+            <h1>Theoretical Foundation</h1>
+            <p>Projectile motion is described using basic equations derived from Newton's laws:</p>
+            <ul>
+                <li>Horizontal Motion: \( x(t) = v_0 \cos(\theta) t \)</li>
+                <li>Vertical Motion: \( y(t) = v_0 \sin(\theta) t - \frac{1}{2} g t^2 \)</li>
+            </ul>
+            <p>These equations form the basis for analyzing motion under varying initial conditions.</p>
+        </div>
+        
+        <div class="section" id="analysis">
+            <h1>Range Analysis</h1>
+            <p>The range of the projectile is maximized under ideal conditions at \( \theta = 45^\circ \):</p>
+            <div class="code-snippet">
+                \( R = \frac{v_0^2 \sin(2\theta)}{g} \)
+            </div>
+            <div class="image-container">
+                <img src="range-vs-angle.png" alt="Range vs Angle Graph">
+            </div>
+            <p>The graph above shows the dependency of range on angle for varying initial velocities.</p>
+        </div>
+        
+        <div class="section" id="applications">
+            <h1>Practical Applications</h1>
+            <p>This model can be adapted to various real-world situations:</p>
+            <ul>
+                <li>Sports: Calculating the arc of a ball.</li>
+                <li>Engineering: Optimizing rocket trajectories.</li>
+                <li>Uneven Terrain: Incorporating initial height \( h \):</li>
+            </ul>
+            <div class="code-snippet">
+                \( R = \frac{v_0 \cos(\theta)}{g} \cdot \left( v_0 \sin(\theta) + \sqrt{(v_0 \sin(\theta))^2 + 2gh} \right) \)
+            </div>
+        </div>
+        
+        <div class="section" id="implementation">
+            <h1>Implementation</h1>
+            <p>You can simulate projectile motion using Python:</p>
+            <div class="code-snippet">
+                <pre>
+import numpy as np
+import matplotlib.pyplot as plt
+
+def projectile_motion(v0, theta, g=9.81, h=0):
+    theta_rad = np.radians(theta)
+    t_flight = (v0 * np.sin(theta_rad) + np.sqrt((v0 * np.sin(theta_rad))**2 + 2 * g * h)) / g
+    t = np.linspace(0, t_flight, num=500)
+    x = v0 * np.cos(theta_rad) * t
+    y = v0 * np.sin(theta_rad) * t - 0.5 * g * t**2
+    return x, y
+
+v0 = 20
+theta = 45
+x, y = projectile_motion(v0, theta)
+
+plt.plot(x, y)
+plt.title("Projectile Motion")
+plt.xlabel("Horizontal Distance (m)")
+plt.ylabel("Vertical Distance (m)")
+plt.grid()
+plt.show()
+                </pre>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Created for exploring physics and its real-world applications.</p>
+        </footer>
+    </div>
+</body>
+</html>
